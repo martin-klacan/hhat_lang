@@ -73,35 +73,115 @@ measure q -> c;
     # assert res == code_snippet
 
 
-def test_qnot_bool():
-    instr = QNot()
-    instrs, status = instr(idxs=(0,))
-    assert instrs == ("x q[0];",)
-    assert status == InstrStatus.DONE
+def test_gen_program_single_qnot_bool() -> None:
+    code_snippet = """OPENQASM 2.0;
+include "qelib1.inc";
+qreg q[1];
+creg c[1];
 
-def test_qnot_u2():
-    instr = QNot()
-    instrs, status = instr(idxs=(0, 1))
-    assert instrs == ("x q[0];", "x q[1];")
-    assert status == InstrStatus.DONE
+x q[0];
+measure q -> c;
+"""
 
-def test_qnot_u3():
-    instr = QNot()
-    instrs, status = instr(idxs=(0, 1, 2))
-    assert instrs == ("x q[0];", "x q[1];", "x q[2];")
-    assert status == InstrStatus.DONE
+    qv = Symbol("@v")
 
-def test_qnot_u4():
-    instr = QNot()
-    instrs, status = instr(idxs=(0, 1, 2, 3))
-    assert instrs == ("x q[0];", "x q[1];", "x q[2];", "x q[3];")
-    assert status == InstrStatus.DONE
+    mem = MemoryManager(5)
+    mem.idx.add(qv, 1)
+    mem.idx.request(qv)
 
-if __name__ == "__main__":
-    # test_gen_program_single_empty_redim()
-    # test_gen_program_single_q0_redim()
-    test_qnot_bool()
-    test_qnot_u2()
-    test_qnot_u3()
-    test_qnot_u4()
-    print("All tests passed.")
+    ex = Evaluator(mem, TypeIR(), FnIR())
+
+    block = IRBlock()
+    block.add_instr(IRInstr(Symbol("@not"), IRArgs(), InstrIRFlag.CALL))
+
+    qlang = LowLeveQLang(Symbol("@v"), block, mem.idx, ex)
+    res = qlang.gen_program()
+
+    assert res == code_snippet
+
+
+def test_gen_program_single_qnot_u2() -> None:
+    code_snippet = """OPENQASM 2.0;
+include "qelib1.inc";
+qreg q[2];
+creg c[2];
+
+x q[0];
+x q[1];
+measure q -> c;
+"""
+
+    qv = Symbol("@v")
+
+    mem = MemoryManager(5)
+    mem.idx.add(qv, 2)
+    mem.idx.request(qv)
+
+    ex = Evaluator(mem, TypeIR(), FnIR())
+
+    block = IRBlock()
+    block.add_instr(IRInstr(Symbol("@not"), IRArgs(), InstrIRFlag.CALL))
+
+    qlang = LowLeveQLang(Symbol("@v"), block, mem.idx, ex)
+    res = qlang.gen_program()
+
+    assert res == code_snippet
+
+
+def test_gen_program_single_qnot_u3() -> None:
+    code_snippet = """OPENQASM 2.0;
+include "qelib1.inc";
+qreg q[3];
+creg c[3];
+
+x q[0];
+x q[1];
+x q[2];
+measure q -> c;
+"""
+
+    qv = Symbol("@v")
+
+    mem = MemoryManager(5)
+    mem.idx.add(qv, 3)
+    mem.idx.request(qv)
+
+    ex = Evaluator(mem, TypeIR(), FnIR())
+
+    block = IRBlock()
+    block.add_instr(IRInstr(Symbol("@not"), IRArgs(), InstrIRFlag.CALL))
+
+    qlang = LowLeveQLang(Symbol("@v"), block, mem.idx, ex)
+    res = qlang.gen_program()
+
+    assert res == code_snippet
+
+
+def test_gen_program_single_qnot_u4() -> None:
+    code_snippet = """OPENQASM 2.0;
+include "qelib1.inc";
+qreg q[4];
+creg c[4];
+
+x q[0];
+x q[1];
+x q[2];
+x q[3];
+measure q -> c;
+"""
+
+    qv = Symbol("@v")
+
+    mem = MemoryManager(5)
+    mem.idx.add(qv, 4)
+    mem.idx.request(qv)
+
+    ex = Evaluator(mem, TypeIR(), FnIR())
+
+    block = IRBlock()
+    block.add_instr(IRInstr(Symbol("@not"), IRArgs(), InstrIRFlag.CALL))
+
+    qlang = LowLeveQLang(Symbol("@v"), block, mem.idx, ex)
+    res = qlang.gen_program()
+
+    assert res == code_snippet
