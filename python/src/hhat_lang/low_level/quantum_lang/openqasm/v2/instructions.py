@@ -173,16 +173,12 @@ class QNot(QInstr):
         return f"x q[{idx}];"
 
     def _translate_instrs(
-        self,
-        idxs: tuple[int, ...]
+        self, idxs: tuple[int, ...]
     ) -> tuple[tuple[str, ...], InstrStatus]:
         return tuple(self._instr(k) for k in idxs), InstrStatus.DONE
 
     def __call__(
-        self,
-        *,
-        idxs: tuple[int, ...],
-        **_kwargs: Any
+        self, *, idxs: tuple[int, ...], **_kwargs: Any
     ) -> tuple[tuple[str, ...], InstrStatus]:
         """Transforms `@not` instruction to openQASMv2.0 code"""
         self._instr_status = InstrStatus.RUNNING
