@@ -98,7 +98,7 @@ measure q -> c;
     block = IRBlock()
     block.add_instr(IRInstr(Symbol("@not"), IRArgs(), InstrIRFlag.CALL))
 
-    qlang = LowLeveQLang(Symbol("@v"), block, mem.idx, ex)
+    qlang = LowLeveQLang(Symbol("@v"), block, mem.idx, ex, Stack())
     res = qlang.gen_program()
 
     assert res == code_snippet
@@ -126,7 +126,7 @@ measure q -> c;
     block = IRBlock()
     block.add_instr(IRInstr(Symbol("@not"), IRArgs(), InstrIRFlag.CALL))
 
-    qlang = LowLeveQLang(Symbol("@v"), block, mem.idx, ex)
+    qlang = LowLeveQLang(Symbol("@v"), block, mem.idx, ex, Stack())
     res = qlang.gen_program()
 
     assert res == code_snippet
@@ -155,7 +155,7 @@ measure q -> c;
     block = IRBlock()
     block.add_instr(IRInstr(Symbol("@not"), IRArgs(), InstrIRFlag.CALL))
 
-    qlang = LowLeveQLang(Symbol("@v"), block, mem.idx, ex)
+    qlang = LowLeveQLang(Symbol("@v"), block, mem.idx, ex, Stack())
     res = qlang.gen_program()
 
     assert res == code_snippet
@@ -185,7 +185,7 @@ measure q -> c;
     block = IRBlock()
     block.add_instr(IRInstr(Symbol("@not"), IRArgs(), InstrIRFlag.CALL))
 
-    qlang = LowLeveQLang(Symbol("@v"), block, mem.idx, ex)
+    qlang = LowLeveQLang(Symbol("@v"), block, mem.idx, ex, Stack())
     res = qlang.gen_program()
 
     assert res == code_snippet
