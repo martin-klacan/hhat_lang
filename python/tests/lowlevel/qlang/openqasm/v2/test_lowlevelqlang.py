@@ -75,11 +75,10 @@ measure q -> c;
     qlang = LowLeveQLang(Symbol("@v"), block, mem.idx, ex, Stack())
     res = qlang.gen_program()
     print(res)
-<<<<<<< HEAD
-    # assert res == code_snippet
+    assert res == code_snippet
 
 
-def test_gen_program_single_qnot_bool() -> None:
+def test_gen_program_single_bool_not() -> None:
     code_snippet = """OPENQASM 2.0;
 include "qelib1.inc";
 qreg q[1];
@@ -106,7 +105,7 @@ measure q -> c;
     assert res == code_snippet
 
 
-def test_gen_program_single_qnot_u2() -> None:
+def test_gen_program_single_u2_not() -> None:
     code_snippet = """OPENQASM 2.0;
 include "qelib1.inc";
 qreg q[2];
@@ -134,7 +133,7 @@ measure q -> c;
     assert res == code_snippet
 
 
-def test_gen_program_single_qnot_u3() -> None:
+def test_gen_program_single_u3_not() -> None:
     code_snippet = """OPENQASM 2.0;
 include "qelib1.inc";
 qreg q[3];
@@ -163,7 +162,7 @@ measure q -> c;
     assert res == code_snippet
 
 
-def test_gen_program_single_qnot_u4() -> None:
+def test_gen_program_single_u4_not() -> None:
     code_snippet = """OPENQASM 2.0;
 include "qelib1.inc";
 qreg q[4];
@@ -190,6 +189,4 @@ measure q -> c;
     qlang = LowLeveQLang(Symbol("@v"), block, mem.idx, ex)
     res = qlang.gen_program()
 
-=======
->>>>>>> upstream/main
     assert res == code_snippet
